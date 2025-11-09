@@ -1,215 +1,83 @@
 @extends('layout.app')
 
 @section('content')
-    <div class="flex min-h-screen bg-gradient-to-br from-gray-800 via-amber-950 to-gray-800 text-gray-100">
+    <div class="flex min-h-screen bg-gradient-to-br from-gray-50 via-[#F7F5F2] to-[#EDE6DF] text-gray-800">
+
         {{-- Sidebar --}}
-        <aside class="w-64 bg-gray-800 shadow-2xl border-r border-amber-900/40 relative">
-            {{-- Pattern --}}
-            <div class="absolute inset-0 opacity-[0.03] pointer-events-none"
-                style="background-image: radial-gradient(circle at 2px 2px, rgb(245, 158, 11) 1px, transparent 0); background-size: 28px 28px;">
-            </div>
-
-            {{-- Logo/Header --}}
-            <div class="relative p-6 border-b border-amber-900/40">
-                <div class="flex items-center space-x-3 mb-4">
-                    <img src="/logo.png" alt="Logo" class="w-8 h-8 object-contain">
-                    <h1
-                        class="text-xl font-bold bg-gradient-to-r from-amber-400 to-yellow-400 bg-clip-text text-transparent">
-                        Golden Dragon
-                    </h1>
-                </div>
-                <p class="text-sm text-amber-200/70">
-                    Halo, <span class="text-amber-400 font-semibold">{{ Auth::user()->name }}</span>
-                </p>
-            </div>
-
-            {{-- Navigation --}}
-            <nav class="relative p-4" x-data="{ openMenu: false }">
-                <ul class="space-y-1.5">
-                    @if (Auth::user()->role === 'user')
-                        <li>
-                            <a href="/dashboard"
-                                class="flex items-center space-x-3 px-4 py-3 rounded-lg text-amber-200/80 hover:text-white hover:bg-gray-800 transition-all">
-                                <i class="fas fa-home text-lg"></i>
-                                <span>Dashboard</span>
-                            </a>
-                        </li>
-                    @elseif (Auth::user()->role === 'teknisi')
-                        <li>
-                            <a href="/dashboard-teknisi"
-                                class="flex items-center space-x-3 px-4 py-3 rounded-lg text-amber-200/80 hover:text-white hover:bg-gray-800 transition-all">
-                                <i class="fas fa-home text-lg"></i>
-                                <span>Dashboard</span>
-                            </a>
-                        </li>
-                    @elseif (Auth::user()->role === 'admin')
-                        <li>
-                            <a href="/dashboard-admin"
-                                class="flex items-center space-x-3 px-4 py-3 rounded-lg text-amber-200/80 hover:text-white hover:bg-gray-800 transition-all">
-                                <i class="fas fa-home text-lg"></i>
-                                <span>Dashboard</span>
-                            </a>
-                        </li>
-                    @endif
-                    <li>
-                        <a href="/riwayat-pengaduan"
-                            class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-amber-600 text-white font-medium transition-all hover:bg-amber-500">
-                            <i class="fas fa-list text-lg"></i>
-                            <span>Riwayat Pengaduan</span>
-                        </a>
-                    </li>
-                    @if (Auth::user()->role === 'user')
-                        <li>
-                            <a href="/input-pengaduan"
-                                class="flex items-center space-x-3 px-4 py-3 rounded-lg text-amber-200/80 hover:text-white hover:bg-gray-800 transition-all">
-                                <i class="fas fa-plus-circle text-lg"></i>
-                                <span>Input Pengaduan</span>
-                            </a>
-                        </li>
-                    @endif
-                    @if (Auth::user()->role === 'admin')
-                        <li>
-                            <a href="/laporan"
-                                class="flex items-center space-x-3 px-4 py-3 rounded-lg text-amber-200/80 hover:text-white hover:bg-gray-800 transition-all">
-                                <i class="fas fa-file-alt text-lg"></i>
-                                <span>Laporan</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <button @click="openMenu = !openMenu"
-                                class="w-full flex items-center justify-between px-4 py-3 rounded-lg text-amber-200/80 hover:text-white hover:bg-gray-800 transition-all">
-                                <div class="flex items-center space-x-3">
-                                    <i class="fas fa-folder-open text-lg"></i>
-                                    <span>Kelola Data</span>
-                                </div>
-                                <i class="fas fa-chevron-down text-sm transition-transform duration-200"
-                                    :class="{ 'rotate-180': openMenu }"></i>
-                            </button>
-
-                            {{-- Submenu --}}
-                            <ul x-show="openMenu" x-transition class="pl-12 mt-1 space-y-1 text-amber-300/80 text-sm">
-                                <li>
-                                    <a href="/users"
-                                        class="block px-3 py-2 rounded-lg hover:text-amber-100 hover:bg-gray-700 transition-all">
-                                        <i class="fas fa-user mr-2 text-xs"></i> Data User
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/teknisi"
-                                        class="block px-3 py-2 rounded-lg hover:text-amber-100 hover:bg-gray-700 transition-all">
-                                        <i class="fas fa-user-cog mr-2 text-xs"></i> Data Teknisi
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/admin/profile"
-                                        class="block px-3 py-2 rounded-lg hover:text-amber-100 hover:bg-gray-700 transition-all">
-                                        <i class="fas fa-id-badge mr-2 text-xs"></i> Profil Akun
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    @endif
-                </ul>
-
-                {{-- Logout --}}
-                <div class="mt-8 pt-4 border-t border-amber-900/40">
-                    <form method="POST" action="/logout">
-                        @csrf
-                        <button type="submit"
-                            class="flex items-center space-x-3 px-4 py-3 rounded-lg text-amber-300/70 hover:text-red-400 hover:bg-red-500/10 transition-all w-full">
-                            <i class="fas fa-sign-out-alt text-lg"></i>
-                            <span>Keluar</span>
-                        </button>
-                    </form>
-                </div>
-            </nav>
-        </aside>
+        <x-sidebar />
 
         {{-- Main Content --}}
-        <main class="flex-1 p-8 bg-gray-800 text-gray-100 overflow-auto">
-            {{-- Header --}}
-            <div class="mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                <div>
-                    <h1
-                        class="text-4xl font-bold mb-2 pb-3 bg-gradient-to-r from-amber-400 via-yellow-400 to-orange-400 bg-clip-text text-transparent">
-                        Riwayat Pengaduan
-                    </h1>
-                    <p class="text-amber-200/70">Daftar laporan kerusakan mesin yang telah diajukan</p>
-                </div>
+        <main class="flex-1 p-8 bg-[#F7F5F2]/60 backdrop-blur-md text-gray-800 overflow-auto relative">
 
+            <div class="absolute top-1/4 right-16 w-52 h-52 bg-[#E5C49E]/20 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-1/4 left-10 w-40 h-40 bg-[#C0A785]/20 rounded-full blur-3xl"></div>
+
+            <div class="mb-10 relative z-10">
+                @if (Auth::user()->role === 'admin')
+                    <h1 class="text-4xl font-extrabold text-[#7A6C5D] mb-2">Data Pengaduan Kerusakan Mesin</h1>
+                @elseif (Auth::user()->role === 'user')
+                    <h1 class="text-4xl font-extrabold text-[#7A6C5D] mb-2">Riwayat Pengaduan</h1>
+                @endif
+                <p class="text-[#7A6C5D]/70 text-sm">Daftar laporan kerusakan mesin yang telah diajukan</p>
+            </div>
+            <div class="mb-6">
                 @if (Auth::user()->role === 'admin')
                     <a href="/input-pengaduan"
-                        class="mt-4 sm:mt-0 bg-amber-600 hover:bg-amber-500 text-white font-semibold px-5 py-2.5 rounded-xl shadow-md transition-all flex items-center space-x-2">
-                        <i class="fas fa-plus-circle"></i>
+                        class="bg-gradient-to-r from-[#C0A785] to-[#E5C49E] hover:from-[#E5C49E] hover:to-[#C0A785] text-white font-semibold px-5 py-2.5 rounded-xl shadow-md transition-all flex items-center space-x-2 inline-flex">
+                        <i class="fas fa-user-plus"></i>
                         <span>Tambah Data</span>
                     </a>
                 @endif
             </div>
 
-            {{-- Table --}}
-            <div class="bg-gray-900/40 border border-amber-800/40 rounded-2xl shadow-lg p-6 overflow-x-auto">
+            <div class="bg-[#F5E6D3] border border-[#D2A679]/30 rounded-2xl shadow-md p-6 overflow-x-auto relative z-10">
                 <table class="min-w-full text-sm text-left border-collapse">
-                    <thead class="bg-amber-900/40 text-amber-200 uppercase text-xs tracking-wider">
+                    <thead class="bg-[#D2A679]/10 text-[#7A6C5D] uppercase text-xs tracking-wider">
                         <tr>
-                            {{-- <th class="px-4 py-3 border-b border-amber-800/40">No</th> --}}
-                            <th class="px-4 py-3 border-b border-amber-800/40">ID</th>
-                            <th class="px-4 py-3 border-b border-amber-800/40">Nama</th>
-                            <th class="px-4 py-3 border-b border-amber-800/40">Mesin</th>
-                            <th class="px-4 py-3 border-b border-amber-800/40">Keterangan</th>
-                            <th class="px-4 py-3 border-b border-amber-800/40">Tanggal</th>
-                            <th class="px-4 py-3 border-b border-amber-800/40">Status</th>
-                            <th class="px-4 py-3 border-b border-amber-800/40 text-center">Aksi</th>
+                            <th class="px-4 py-3 border-b border-[#D2A679]/30">ID</th>
+                            <th class="px-4 py-3 border-b border-[#D2A679]/30">Nama</th>
+                            <th class="px-4 py-3 border-b border-[#D2A679]/30">Mesin</th>
+                            <th class="px-4 py-3 border-b border-[#D2A679]/30">Keterangan</th>
+                            <th class="px-4 py-3 border-b border-[#D2A679]/30">Tanggal</th>
+                            <th class="px-4 py-3 border-b border-[#D2A679]/30">Status</th>
+                            <th class="px-4 py-3 border-b border-[#D2A679]/30 text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($pengaduans as $index => $p)
-                            <tr class="hover:bg-amber-900/10 transition-all">
-                                {{-- <td class="px-4 py-2 border-b border-amber-900/40 text-center">{{ $index + 1 }}</td> --}}
-                                <td class="px-4 py-2 border-b border-amber-900/40">
+                        @forelse ($pengaduans as $p)
+                            <tr class="hover:bg-[#EBDCC2] transition-all">
+                                <td class="px-4 py-2 border-b border-[#D2A679]/20">
                                     NP{{ str_pad($p->id, 4, '0', STR_PAD_LEFT) }}</td>
-                                <td class="px-4 py-2 border-b border-amber-900/40">{{ $p->user->name ?? 'Tidak diketahui' }}
+                                <td class="px-4 py-2 border-b border-[#D2A679]/20">{{ $p->user->name ?? '-' }}</td>
+                                <td class="px-4 py-2 border-b border-[#D2A679]/20">{{ $p->nama_mesin }}</td>
+                                <td class="px-4 py-2 border-b border-[#D2A679]/20">{{ Str::limit($p->keterangan, 40) }}</td>
+                                <td class="px-4 py-2 border-b border-[#D2A679]/20">{{ $p->created_at->format('Y-m-d') }}
                                 </td>
-                                <td class="px-4 py-2 border-b border-amber-900/40">{{ $p->nama_mesin }}</td>
-                                <td class="px-4 py-2 border-b border-amber-900/40">{{ Str::limit($p->keterangan, 40) }}</td>
-                                <td class="px-4 py-2 border-b border-amber-900/40">{{ $p->created_at->format('Y-m-d') }}
-                                </td>
-                                <td class="px-4 py-2 border-b border-amber-900/40">
+                                <td class="px-4 py-2 border-b border-[#D2A679]/20">
                                     @if ($p->status == 'menunggu')
                                         <span
-                                            class="bg-amber-600/20 text-amber-400 px-2 py-1 rounded-lg text-xs font-semibold">Sedang
+                                            class="bg-[#C9996B]/30 text-[#7A6C5D] px-2 py-1 rounded-lg text-xs font-semibold">Sedang
                                             Diajukan</span>
                                     @elseif($p->status == 'diproses')
                                         <span
-                                            class="bg-yellow-600/20 text-yellow-400 px-2 py-1 rounded-lg text-xs font-semibold">Sedang
-                                            Diproses</span>
+                                            class="bg-[#C9996B]/20 text-[#7A6C5D] px-2 py-1 rounded-lg text-xs font-semibold">Diproses</span>
                                     @else
                                         <span
-                                            class="bg-lime-600/20 text-lime-400 px-2 py-1 rounded-lg text-xs font-semibold">Selesai
-                                            Diproses</span>
+                                            class="bg-[#C9996B]/30 text-[#7A6C5D] px-2 py-1 rounded-lg text-xs font-semibold">Selesai</span>
                                     @endif
                                 </td>
-
-                                {{-- Aksi --}}
-                                <td class="px-4 py-2 border-b border-amber-900/40 text-center space-x-2">
-                                    @if (Auth::user()->role === 'teknisi')
-                                        <a href="/pengaduan/{{ $p->id }}"
-                                            class="text-amber-400 hover:text-yellow-300 font-semibold transition-all">Update</a>
-                                    @elseif (Auth::user()->role === 'admin')
-                                        <a href="/pengaduan/{{ $p->id }}"
-                                            class="text-amber-400 hover:text-yellow-300 font-semibold transition-all px-2">Detail</a>
-                                        <button type="button"
-                                            class="text-red-500 hover:text-red-400 font-semibold transition-all"
-                                            onclick="openDeleteModal({{ $p->id }})">Hapus</button>
-                                    @else
-                                        <a href="/pengaduan/{{ $p->id }}"
-                                            class="text-amber-400 hover:text-yellow-300 font-semibold transition-all">Detail</a>
+                                <td class="px-4 py-2 border-b border-[#D2A679]/20 text-center space-x-3">
+                                    <a href="/pengaduan/{{ $p->id }}"
+                                        class="text-[#C9996B] hover:text-[#7A6C5D] font-semibold transition-all">Detail</a>
+                                    @if (Auth::user()->role === 'admin')
+                                        <button onclick="openDeleteModal({{ $p->id }})"
+                                            class="text-[#A12020] hover:text-red-700 font-semibold transition-all">Hapus</button>
                                     @endif
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class="text-center text-amber-200/60 py-6">Belum ada pengaduan yang
+                                <td colspan="7" class="text-center text-[#7A6C5D]/60 py-6">Belum ada pengaduan yang
                                     dikirim.</td>
                             </tr>
                         @endforelse
@@ -217,41 +85,66 @@
                 </table>
 
                 {{-- Pagination --}}
-                <div class="mt-6">
-                    {{ $pengaduans->links() }}
+                <div class="mt-6 flex justify-center">
+                    @if ($pengaduans->hasPages())
+                        <div
+                            class="inline-flex items-center space-x-1 bg-[#F5E6D3]/60 backdrop-blur-md border border-[#D2A679]/30 rounded-xl px-3 py-2 shadow-sm">
+                            {{-- Tombol Sebelumnya --}}
+                            @if ($pengaduans->onFirstPage())
+                                <span
+                                    class="px-3 py-1 text-[#7A6C5D]/40 text-sm font-semibold cursor-not-allowed">&laquo;</span>
+                            @else
+                                <a href="{{ $pengaduans->previousPageUrl() }}"
+                                    class="px-3 py-1 rounded-lg text-[#7A6C5D] hover:bg-[#D2A679]/40 hover:text-[#7A6C5D] font-semibold text-sm transition-all">&laquo;</a>
+                            @endif
+
+                            {{-- Nomor Halaman --}}
+                            @foreach ($pengaduans->links()->elements[0] ?? [] as $page => $url)
+                                @if ($page == $pengaduans->currentPage())
+                                    <span
+                                        class="px-3 py-1 rounded-lg bg-[#C9996B] text-white font-semibold text-sm shadow transition-all">{{ $page }}</span>
+                                @else
+                                    <a href="{{ $url }}"
+                                        class="px-3 py-1 rounded-lg text-[#7A6C5D] hover:bg-[#F5E6D3] font-semibold text-sm transition-all">{{ $page }}</a>
+                                @endif
+                            @endforeach
+
+                            {{-- Tombol Selanjutnya --}}
+                            @if ($pengaduans->hasMorePages())
+                                <a href="{{ $pengaduans->nextPageUrl() }}"
+                                    class="px-3 py-1 rounded-lg text-[#7A6C5D] hover:bg-[#D2A679]/40 hover:text-[#7A6C5D] font-semibold text-sm transition-all">&raquo;</a>
+                            @else
+                                <span
+                                    class="px-3 py-1 text-[#7A6C5D]/40 text-sm font-semibold cursor-not-allowed">&raquo;</span>
+                            @endif
+                        </div>
+                    @endif
                 </div>
             </div>
 
-            {{-- Modal Konfirmasi Hapus --}}
-            <div id="deleteModal" class="fixed inset-0 bg-black/60 hidden justify-center items-center z-50">
-                <div class="bg-gray-900 border border-amber-800/40 rounded-2xl p-6 w-full max-w-md shadow-xl">
-                    <h2 class="text-xl font-bold text-amber-400 mb-3">Konfirmasi Hapus</h2>
-                    <p class="text-gray-300 mb-6">Apakah kamu yakin ingin menghapus pengaduan ini? Tindakan ini tidak bisa
-                        dibatalkan.</p>
-
-                    <div class="flex justify-end space-x-3">
-                        <button type="button" onclick="closeDeleteModal()"
-                            class="bg-gray-700 hover:bg-gray-600 text-gray-200 px-4 py-2 rounded-lg transition-all">Batal</button>
-
-                        <form id="deleteForm" method="POST" action="">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit"
-                                class="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-lg transition-all">Hapus</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Footer --}}
-            <div class="mt-80 pt-6  border-t border-amber-900/40 text-center">
-                <p class="text-sm text-amber-200/60">
-                    © 2025 Golden Dragon Maintenance System. All rights reserved.
-                </p>
-            </div>
         </main>
-
     </div>
+
+    {{-- Modal Konfirmasi Delete --}}
+    <div id="deleteModal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl shadow-xl p-8 max-w-sm w-full text-center border border-[#C0A785]/30">
+            <h2 class="text-lg font-semibold text-[#7A6C5D] mb-3">Hapus Pengaduan?</h2>
+            <p class="text-sm text-[#7A6C5D]/70 mb-6">Apakah kamu yakin ingin menghapus pengaduan ini? Tindakan ini tidak
+                dapat dibatalkan.</p>
+
+            <div class="flex justify-center space-x-4">
+                <button onclick="closeDeleteModal()"
+                    class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 text-[#7A6C5D] font-semibold transition-all">Batal</button>
+                <form id="deleteForm" method="POST" class="inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                        class="px-4 py-2 rounded-lg bg-[#A12020] hover:bg-red-700 text-white font-semibold transition-all">Hapus</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script>
         function openDeleteModal(id) {
             const modal = document.getElementById('deleteModal');

@@ -20,6 +20,8 @@ Route::get('/contact', function () {
 });
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/registrasi', [AuthController::class, 'showRegistrasiForm'])->name('registrasi');
+Route::post('/registrasi', [AuthController::class, 'registrasi']);
 
 Route::middleware('auth')->group(function () {
 
@@ -65,9 +67,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/laporan/export/pdf', [PengaduanController::class, 'exportPdf'])->name('laporan.export.pdf');
     Route::get('/laporan/export/excel', [PengaduanController::class, 'exportExcel'])->name('laporan.export.excel');
 
-    Route::get('/akun-profil-admin', function () {
-        return view('auth.akun-profil-admin');
-    });
+    Route::get('/akun-profil-admin', [UserController::class, 'profileAdmin']);
+    Route::put('/akun-profil-admin', [UserController::class, 'updateProfile'])->name('profile.update');
 
     Route::resource('/users', UserController::class);
     Route::resource('/teknisi', TeknisiController::class);

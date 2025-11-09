@@ -18,13 +18,23 @@ class LaporanExport implements FromCollection, WithHeadings
 
     public function collection()
     {
-        return Pengaduan::whereBetween('created_at', [$this->tanggal_awal, $this->tanggal_akhir])
-            ->select('kode_pengaduan', 'nama_pelapor', 'lokasi_mesin', 'status', 'created_at')
-            ->get();
+        return Pengaduan::whereBetween('tanggal_laporan', [$this->tanggal_awal, $this->tanggal_akhir])
+            ->select('id', 'nama_pelapor', 'nama_mesin', 'status', 'tanggal_laporan')
+            ->get()
+            ->map(function ($data, $index) {
+                return [
+                    'No' => $index + 1,
+                    'Kode' => 'NP' . str_pad($data->id, 4, '0', STR_PAD_LEFT),
+                    'Nama Pelapor' => $data->nama_pelapor,
+                    'Mesin' => $data->nama_mesin,
+                    'Status' => ucfirst($data->status),
+                    'Tanggal' => $data->tanggal_laporan,
+                ];
+            });
     }
 
     public function headings(): array
     {
-        return ['Kode Pengaduan', 'Nama Pelapor', 'Lokasi Mesin', 'Status', 'Tanggal'];
+        return ['No', 'Kode', 'Nama Pelapor', 'Mesin', 'Status', 'Tanggal'];
     }
 }
