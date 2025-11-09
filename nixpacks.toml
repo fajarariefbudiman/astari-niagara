@@ -1,9 +1,8 @@
 [phases.setup]
-nixPkgs = ["php82", "nodejs_22", "composer"]
+nixPkgs = ["nodejs_22"]
 
 [phases.build]
 commands = [
-  "composer install --no-dev --optimize-autoloader",
   "npm install",
   "npm run build"
 ]
