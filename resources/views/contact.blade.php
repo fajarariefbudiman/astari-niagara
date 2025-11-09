@@ -87,7 +87,7 @@
                                 <img src="boy.png" alt="Rahman"
                                     class="w-24 h-24 rounded-full mx-auto mb-4 border-2 border-[#C0A785] object-cover">
                                 <h3 class="text-lg font-semibold text-[#7A6C5D] text-center">Rahman</h3>
-                                <p class="text-sm text-gray-600 mb-2 text-center">Backend Developer</p>
+                                <p class="text-sm text-gray-600 mb-2 text-center">Programmer</p>
                                 <p class="text-gray-600 text-sm mb-3 text-center">Ahli API dan keamanan server, memastikan
                                     sistem berjalan optimal.</p>
                                 <blockquote class="italic text-[#C0A785] text-sm text-center">“Konsistensi adalah kunci
@@ -99,9 +99,9 @@
                         <div
                             class="bg-white border border-[#C0A785]/30 rounded-2xl p-6 shadow-md hover:shadow-[#C0A785]/40 transition-all hover:scale-105 flex flex-col justify-between">
                             <div>
-                                <img src="girl.png" alt="Riska"
+                                <img src="girl.png" alt="Rahayu"
                                     class="w-24 h-24 rounded-full mx-auto mb-4 border-2 border-[#C0A785] object-cover">
-                                <h3 class="text-lg font-semibold text-[#7A6C5D] text-center">Riska</h3>
+                                <h3 class="text-lg font-semibold text-[#7A6C5D] text-center">Rahayu</h3>
                                 <p class="text-sm text-gray-600 mb-2 text-center">UI/UX Designer</p>
                                 <p class="text-gray-600 text-sm mb-3 text-center">Mendesain antarmuka yang estetis, modern,
                                     dan mudah digunakan.</p>
@@ -114,12 +114,12 @@
                         <div
                             class="bg-white border border-[#C0A785]/30 rounded-2xl p-6 shadow-md hover:shadow-[#C0A785]/40 transition-all hover:scale-105 flex flex-col justify-between">
                             <div>
-                                <img src="stylish-boy.png" alt="Ridho"
+                                <img src="girl.png" alt="Firyal"
                                     class="w-24 h-24 rounded-full mx-auto mb-4 border-2 border-[#C0A785] object-cover">
-                                <h3 class="text-lg font-semibold text-[#7A6C5D] text-center">Ridho</h3>
-                                <p class="text-sm text-gray-600 mb-2 text-center">Frontend Developer</p>
-                                <p class="text-gray-600 text-sm mb-3 text-center">Mengubah desain menjadi antarmuka
-                                    interaktif dan responsif.</p>
+                                <h3 class="text-lg font-semibold text-[#7A6C5D] text-center">Firyal</h3>
+                                <p class="text-sm text-gray-600 mb-2 text-center">System Analyst</p>
+                                <p class="text-gray-600 text-sm mb-3 text-center">Analisis kebutuhan &
+                                    dokumentasi sistem.</p>
                                 <blockquote class="italic text-[#C0A785] text-sm text-center">“Kreativitas tumbuh dari
                                     kesederhanaan.”</blockquote>
                             </div>
@@ -129,9 +129,9 @@
                         <div
                             class="bg-white border border-[#C0A785]/30 rounded-2xl p-6 shadow-md hover:shadow-[#C0A785]/40 transition-all hover:scale-105 flex flex-col justify-between">
                             <div>
-                                <img src="young-boy.png" alt="Rizki"
+                                <img src="girl.png" alt="Sheilla"
                                     class="w-24 h-24 rounded-full mx-auto mb-4 border-2 border-[#C0A785] object-cover">
-                                <h3 class="text-lg font-semibold text-[#7A6C5D] text-center">Rizki</h3>
+                                <h3 class="text-lg font-semibold text-[#7A6C5D] text-center">Sheilla</h3>
                                 <p class="text-sm text-gray-600 mb-2 text-center">Project Manager</p>
                                 <p class="text-gray-600 text-sm mb-3 text-center">Mengelola strategi, koordinasi tim, dan
                                     memastikan visi proyek tercapai.</p>

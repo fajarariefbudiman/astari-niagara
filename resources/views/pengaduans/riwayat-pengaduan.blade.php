@@ -18,7 +18,7 @@
                 @elseif (Auth::user()->role === 'user')
                     <h1 class="text-4xl font-extrabold text-[#7A6C5D] mb-2">Riwayat Pengaduan</h1>
                 @endif
-                <p class="text-[#7A6C5D]/70 text-sm">Daftar laporan kerusakan mesin yang telah diajukan</p>
+                <h1 class="text-4xl font-extrabold text-[#7A6C5D] mb-2">Daftar Pengaduan Kerusakan Mesin</h1>
             </div>
             <div class="mb-6">
                 @if (Auth::user()->role === 'admin')
