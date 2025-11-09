@@ -17,8 +17,9 @@
                     <h1 class="text-4xl font-extrabold text-[#7A6C5D] mb-2">Data Pengaduan Kerusakan Mesin</h1>
                 @elseif (Auth::user()->role === 'user')
                     <h1 class="text-4xl font-extrabold text-[#7A6C5D] mb-2">Riwayat Pengaduan</h1>
+                @elseif (Auth::user()->role === 'teknisi')
+                    <h1 class="text-4xl font-extrabold text-[#7A6C5D] mb-2">Daftar Pengaduan Kerusakan Mesin</h1>
                 @endif
-                <h1 class="text-4xl font-extrabold text-[#7A6C5D] mb-2">Daftar Pengaduan Kerusakan Mesin</h1>
             </div>
             <div class="mb-6">
                 @if (Auth::user()->role === 'admin')
