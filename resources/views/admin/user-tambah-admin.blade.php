@@ -69,19 +69,15 @@
 
                             {{-- Departemen (jika teknisi) --}}
                             {{-- @if ($isTeknisi) --}}
-                                <div>
-                                    <label class="block text-sm font-medium text-[#7A6C5D] mb-2" for="departemen">
-                                        <i class="fas fa-building mr-2"></i>Departemen
-                                    </label>
-                                    <select name="departemen" id="departemen"
-                                        class="w-full px-4 py-3 rounded-lg border border-[#C0A785]/40 bg-white/70 focus:outline-none focus:ring-2 focus:ring-[#C0A785]/60 focus:border-transparent transition-all">
-                                        <option value="">-- Pilih Departemen --</option>
-                                        <option value="produksi" {{ old('departemen', $user->departemen ?? '') == 'produksi' ? 'selected' : '' }}>Produksi</option>
-                                        <option value="pemeliharaan" {{ old('departemen', $user->departemen ?? '') == 'pemeliharaan' ? 'selected' : '' }}>Pemeliharaan</option>
-                                        <option value="quality_control" {{ old('departemen', $user->departemen ?? '') == 'quality_control' ? 'selected' : '' }}>Quality Control</option>
-                                        <option value="logistik" {{ old('departemen', $user->departemen ?? '') == 'logistik' ? 'selected' : '' }}>Logistik</option>
-                                    </select>
-                                </div>
+                                {{-- Departemen --}}
+                            <div>
+                                <label class="block text-sm font-medium text-[#7A6C5D] mb-2" for="departemen">
+                                    <i class="fas fa-building mr-2"></i>Departemen
+                                </label>
+                                <input type="text" id="departemen" value="{{ $isTeknisi ? 'Pemeliharaan' : 'Produksi' }}" readonly
+                                    class="w-full px-4 py-3 rounded-lg border border-[#C0A785]/40 bg-[#FAF9F7] text-[#7A6C5D] focus:outline-none transition-all cursor-not-allowed">
+                                <input type="hidden" name="departemen" value="{{ $isTeknisi ? 'pemeliharaan' : 'produksi' }}">
+                            </div>
                             {{-- @endif --}}
 
                             {{-- Password --}}

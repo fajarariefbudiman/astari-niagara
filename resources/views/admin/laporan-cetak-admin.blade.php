@@ -74,34 +74,56 @@
                     <h2 class="text-lg font-semibold text-[#7A6C5D] mb-4">Hasil Laporan</h2>
 
                     <table class="min-w-full text-sm text-left border-collapse">
-                        <thead class="bg-[#C0A785]/10 text-[#7A6C5D] uppercase text-xs tracking-wider">
-                            <tr>
-                                <th class="px-4 py-3 border-b border-[#C0A785]/30">No</th>
-                                <th class="px-4 py-3 border-b border-[#C0A785]/30">ID</th>
-                                <th class="px-4 py-3 border-b border-[#C0A785]/30">Nama</th>
-                                <th class="px-4 py-3 border-b border-[#C0A785]/30">Mesin</th>
-                                <th class="px-4 py-3 border-b border-[#C0A785]/30">Tanggal</th>
-                                <th class="px-4 py-3 border-b border-[#C0A785]/30">Status</th>
+                    {{-- Header --}}
+                    <thead class="bg-[#C0A785]/10 text-[#7A6C5D] uppercase text-xs tracking-wider">
+                        <tr>
+                            <th class="px-4 py-3 border-b border-[#C0A785]/30">No</th>
+                            <th class="px-4 py-3 border-b border-[#C0A785]/30">ID</th>
+                            <th class="px-4 py-3 border-b border-[#C0A785]/30">Nama</th>
+                            <th class="px-4 py-3 border-b border-[#C0A785]/30">Mesin</th>
+                            <th class="px-4 py-3 border-b border-[#C0A785]/30">Tanggal</th>
+                            <th class="px-4 py-3 border-b border-[#C0A785]/30">Keterangan Masalah</th>
+                            <th class="px-4 py-3 border-b border-[#C0A785]/30">Catatan Petugas</th>
+                            <th class="px-4 py-3 border-b border-[#C0A785]/30">Status</th>
+                        </tr>
+                    </thead>
+
+                    {{-- Body --}}
+                    <tbody>
+                        @forelse ($laporan as $index => $data)
+                            <tr class="hover:bg-[#EDE6DF]/70 transition-all">
+                                <td class="px-4 py-2 border-b border-[#C0A785]/20">{{ $index + 1 }}</td>
+                                <td class="px-4 py-2 border-b border-[#C0A785]/20">
+                                    NP{{ str_pad($data->id, 4, '0', STR_PAD_LEFT) }}</td>
+                                <td class="px-4 py-2 border-b border-[#C0A785]/20">{{ $data->nama_pelapor }}</td>
+                                <td class="px-4 py-2 border-b border-[#C0A785]/20">{{ $data->nama_mesin }}</td>
+                                <td class="px-4 py-2 border-b border-[#C0A785]/20">{{ $data->tanggal_laporan }}</td>
+                                <td class="px-4 py-2 border-b border-[#C0A785]/20 max-w-xs">
+                                    <p class="line-clamp-3 text-gray-700">{{ $data->keterangan ?? '-' }}</p>
+                                </td>
+                                <td class="px-4 py-2 border-b border-[#C0A785]/20 max-w-xs">
+                                    <p class="line-clamp-3 text-gray-700">{{ $data->hasil_perbaikan ?? '-' }}</p>
+                                </td>
+                                <td class="px-4 py-2 border-b border-[#C0A785]/20 capitalize">
+                                    @php
+                                        $statusColor = match($data->status) {
+                                            'menunggu' => 'bg-yellow-100 text-yellow-700',
+                                            'diproses' => 'bg-blue-100 text-blue-700',
+                                            'selesai'  => 'bg-green-100 text-green-700',
+                                            default    => 'bg-gray-100 text-gray-600',
+                                        };
+                                    @endphp
+                                    <span class="px-2 py-1 rounded-full text-xs font-semibold {{ $statusColor }}">
+                                        {{ $data->status }}
+                                    </span>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($laporan as $index => $data)
-                                <tr class="hover:bg-[#EDE6DF]/70 transition-all">
-                                    <td class="px-4 py-2 border-b border-[#C0A785]/20">{{ $index + 1 }}</td>
-                                    <td class="px-4 py-2 border-b border-[#C0A785]/20">
-                                        NP{{ str_pad($data->id, 4, '0', STR_PAD_LEFT) }}</td>
-                                    <td class="px-4 py-2 border-b border-[#C0A785]/20">{{ $data->nama_pelapor }}</td>
-                                    <td class="px-4 py-2 border-b border-[#C0A785]/20">{{ $data->nama_mesin }}</td>
-                                    <td class="px-4 py-2 border-b border-[#C0A785]/20">{{ $data->tanggal_laporan }}</td>
-                                    <td class="px-4 py-2 border-b border-[#C0A785]/20 capitalize">{{ $data->status }}</td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="6" class="text-center text-[#7A6C5D]/60 py-6">Tidak ada data ditemukan.
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
+                        @empty
+                            <tr>
+                                <td colspan="8" class="text-center text-[#7A6C5D]/60 py-6">Tidak ada data ditemukan.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
                     </table>
                 </div>
             @endif

@@ -22,7 +22,7 @@
                 @endif
             </div>
             <div class="mb-6">
-                @if (Auth::user()->role === 'admin')
+                @if (Auth::user()->role === 'user')
                     <a href="/input-pengaduan"
                         class="bg-gradient-to-r from-[#C0A785] to-[#E5C49E] hover:from-[#E5C49E] hover:to-[#C0A785] text-white font-semibold px-5 py-2.5 rounded-xl shadow-md transition-all flex items-center space-x-2 inline-flex">
                         <i class="fas fa-user-plus"></i>
@@ -31,8 +31,9 @@
                 @endif
             </div>
 
-            <div class="bg-[#F5E6D3] border border-[#D2A679]/30 rounded-2xl shadow-md p-6 overflow-x-auto relative z-10">
-                <table class="min-w-full text-sm text-left border-collapse">
+            <div class="bg-[#F5E6D3] border border-[#D2A679]/30 rounded-2xl shadow-md p-6 relative z-10">
+                <div class="overflow-x-auto">
+                  <table class="min-w-[800px] w-full text-sm text-left border-collapse">
                     <thead class="bg-[#D2A679]/10 text-[#7A6C5D] uppercase text-xs tracking-wider">
                         <tr>
                             <th class="px-4 py-3 border-b border-[#D2A679]/30">ID</th>
@@ -84,6 +85,7 @@
                         @endforelse
                     </tbody>
                 </table>
+                </div>
 
                 {{-- Pagination --}}
                 <div class="mt-6 flex justify-center">

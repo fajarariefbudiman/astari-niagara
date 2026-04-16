@@ -32,7 +32,7 @@
                 {{-- Tanggal Laporan --}}
                 <div class="mb-5">
                     <label class="block text-sm font-medium text-[#7A5A33] mb-1">Tanggal Laporan</label>
-                    <input type="date" name="tanggal_laporan" required
+                    <input type="date" name="tanggal_laporan" value="{{ date('Y-m-d') }}" required
                         class="w-full bg-[#FAF9F7] border border-[#D9C6A5]/60 text-[#3E2F1C] rounded-lg px-4 py-2 focus:ring-2 focus:ring-[#C0A785] focus:border-transparent">
                 </div>
 
@@ -53,10 +53,20 @@
                 {{-- Nama Mesin --}}
                 <div class="mb-5">
                     <label class="block text-sm font-medium text-[#7A5A33] mb-1">Nama Mesin</label>
-                    <input type="text" name="nama_mesin" placeholder="Contoh: Mesin Potong A12" required
+                    <select name="nama_mesin" required
                         class="w-full bg-[#FAF9F7] border border-[#D9C6A5]/60 text-[#3E2F1C] rounded-lg px-4 py-2 focus:ring-2 focus:ring-[#C0A785] focus:border-transparent">
+                        <option value="" disabled selected>-- Pilih Mesin --</option>
+                        <option value="Mesin V-Cut">Mesin V-Cut</option>
+                        <option value="Mesin HF">Mesin HF</option>
+                        <option value="Mesin V-Nail">Mesin V-Nail</option>
+                        <option value="Mesin Kaca">Mesin Kaca</option>
+                        <option value="Mesin Backboard">Mesin Backboard</option>
+                        <option value="Mesin Auto Sealer">Mesin Auto Sealer</option>
+                        <option value="Mesin Bor">Mesin Bor</option>
+                        <option value="Mesin Lakban">Mesin Lakban</option>
+                    </select>
                 </div>
-
+                
                 {{-- Keterangan --}}
                 <div class="mb-6">
                     <label class="block text-sm font-medium text-[#7A5A33] mb-1">Keterangan</label>

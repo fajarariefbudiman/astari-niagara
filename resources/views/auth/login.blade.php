@@ -66,9 +66,9 @@
 
                 <!-- Link Registrasi -->
                 <div class="flex items-center justify-between mb-6">
-                    <a href="{{ url('/registrasi') }}"
+                    <a href="{{ url('/forgot-password') }}"
                         class="text-sm text-[#C0A785] hover:text-[#7A6C5D] hover:underline font-medium transition">
-                        Belum punya akun? Registrasi
+                        Forgot Password?
                     </a>
                 </div>
 
