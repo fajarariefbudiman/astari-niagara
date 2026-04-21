@@ -77,7 +77,7 @@
                     {{-- Header --}}
                     <thead class="bg-[#C0A785]/10 text-[#7A6C5D] uppercase text-xs tracking-wider">
                         <tr>
-                            <th class="px-4 py-3 border-b border-[#C0A785]/30">ID</th>
+                            <th class="px-4 py-3 border-b border-[#C0A785]/30">No Pengaduan</th>
                             <th class="px-4 py-3 border-b border-[#C0A785]/30">Nama</th>
                             <th class="px-4 py-3 border-b border-[#C0A785]/30">Mesin</th>
                             <th class="px-4 py-3 border-b border-[#C0A785]/30">Tanggal Laporan</th>
