@@ -154,13 +154,13 @@
                     </a>
                 </li>
 
-                <li>
+                {{-- <li>
                     <a href="/ganti-password"
                         class="flex items-center space-x-3 px-4 py-3 rounded-lg {{ Request::is('ganti-password') ? 'bg-gradient-to-r from-[#C0A785] to-[#E5C49E] text-white font-semibold shadow hover:from-[#E5C49E] hover:to-[#C0A785]' : 'text-[#7A6C5D] hover:bg-[#EDE6DF]/70' }} transition-all hover:scale-[1.02]">
                         <i class="fas fa-key text-lg"></i>
                         <span>Ganti Password</span>
                     </a>
-                </li>
+                </li> --}}
             </ul>
 
             {{-- Logout --}}
