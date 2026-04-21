@@ -36,12 +36,13 @@
                   <table class="min-w-[800px] w-full text-sm text-left border-collapse">
                     <thead class="bg-[#D2A679]/10 text-[#7A6C5D] uppercase text-xs tracking-wider">
                         <tr>
-                            <th class="px-4 py-3 border-b border-[#D2A679]/30">ID</th>
+                            <th class="px-4 py-3 border-b border-[#D2A679]/30">No Pengaduan</th>
                             <th class="px-4 py-3 border-b border-[#D2A679]/30">Nama</th>
                             <th class="px-4 py-3 border-b border-[#D2A679]/30">Mesin</th>
                             <th class="px-4 py-3 border-b border-[#D2A679]/30">Keterangan</th>
-                            <th class="px-4 py-3 border-b border-[#D2A679]/30">Tanggal</th>
                             <th class="px-4 py-3 border-b border-[#D2A679]/30">Status</th>
+                            <th class="px-4 py-3 border-b border-[#D2A679]/30">Tanggal Laporan</th>
+                            <th class="px-4 py-3 border-b border-[#D2A679]/30">Tanggal Perbaikan</th>
                             <th class="px-4 py-3 border-b border-[#D2A679]/30 text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -53,7 +54,7 @@
                                 <td class="px-4 py-2 border-b border-[#D2A679]/20">{{ $p->user->name ?? '-' }}</td>
                                 <td class="px-4 py-2 border-b border-[#D2A679]/20">{{ $p->nama_mesin }}</td>
                                 <td class="px-4 py-2 border-b border-[#D2A679]/20">{{ Str::limit($p->keterangan, 40) }}</td>
-                                <td class="px-4 py-2 border-b border-[#D2A679]/20">{{ $p->created_at->format('Y-m-d') }}
+                                {{-- <td class="px-4 py-2 border-b border-[#D2A679]/20">{{ $p->created_at->format('Y-m-d') }} --}}
                                 </td>
                                 <td class="px-4 py-2 border-b border-[#D2A679]/20">
                                     @if ($p->status == 'menunggu')
@@ -66,6 +67,26 @@
                                     @else
                                         <span
                                             class="bg-[#C9996B]/30 text-[#7A6C5D] px-2 py-1 rounded-lg text-xs font-semibold">Selesai</span>
+                                    @endif
+                                </td>
+                                <td class="px-4 py-2 border-b border-[#D2A679]/20">
+                                    {{ \Carbon\Carbon::parse($p->tanggal_laporan)->format('Y-m-d') }}
+                                </td>
+
+                                {{-- TANGGAL PERBAIKAN + DURASI --}}
+                                <td class="px-4 py-2 border-b border-[#D2A679]/20">
+                                    @if ($p->tanggal_perbaikan)
+                                        {{ \Carbon\Carbon::parse($p->tanggal_perbaikan)->format('Y-m-d') }}
+                                        @php
+                                            $durasi = \Carbon\Carbon::parse($p->tanggal_laporan)
+                                                        ->diffInDays(\Carbon\Carbon::parse($p->tanggal_perbaikan));
+                                        @endphp
+                                        <br>
+                                        <span class="text-xs text-[#7A6C5D]/60 italic">
+                                            {{ $durasi }} hari
+                                        </span>
+                                    @else
+                                        <span class="text-[#7A6C5D]/40 italic text-xs">Belum selesai</span>
                                     @endif
                                 </td>
                                 <td class="px-4 py-2 border-b border-[#D2A679]/20 text-center space-x-3">

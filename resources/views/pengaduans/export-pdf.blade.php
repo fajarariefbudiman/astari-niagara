@@ -72,14 +72,15 @@
     <table>
         <thead>
             <tr>
-                <th style="width:4%">No</th>
-                <th style="width:8%">Kode</th>
-                <th style="width:13%">Nama Pelapor</th>
-                <th style="width:10%">Mesin</th>
-                <th style="width:9%">Tanggal</th>
-                <th style="width:22%">Keterangan Masalah</th>
-                <th style="width:22%">Catatan Petugas</th>
-                <th style="width:8%">Status</th>
+                <th style="width:7%">No Pengaduan</th>
+                <th style="width:11%">Nama Pelapor</th>
+                <th style="width:9%">Mesin</th>
+                <th style="width:8%">Tanggal Laporan</th>
+                <th style="width:18%">Keterangan Masalah</th>
+                <th style="width:18%">Catatan Petugas</th>
+                <th style="width:7%">Status</th>
+                <th style="width:9%">Tanggal Perbaikan</th>
+                <th style="width:7%">Durasi</th>
             </tr>
         </thead>
         <tbody>
@@ -91,9 +92,11 @@
                         'selesai'  => 'status-selesai',
                         default    => '',
                     };
+                    $durasi = $data->tanggal_perbaikan
+                        ? \Carbon\Carbon::parse($data->tanggal_laporan)->diffInDays($data->tanggal_perbaikan) . ' hari'
+                        : '-';
                 @endphp
                 <tr>
-                    <td>{{ $i + 1 }}</td>
                     <td>NP{{ str_pad($data->id, 4, '0', STR_PAD_LEFT) }}</td>
                     <td>{{ $data->nama_pelapor }}</td>
                     <td>{{ $data->nama_mesin }}</td>
@@ -101,12 +104,14 @@
                     <td class="text-left">{{ $data->keterangan ?? '-' }}</td>
                     <td class="text-left">{{ $data->hasil_perbaikan ?? '-' }}</td>
                     <td class="{{ $statusClass }}">{{ ucfirst($data->status) }}</td>
+                    <td>{{ $data->tanggal_perbaikan ?? '-' }}</td>
+                    <td>{{ $durasi }}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
 
-    <p class="footer">Dicetak pada: {{ now()->format('d-m-Y H:i') }}</p>
+    <p class="footer">Dicetak pada: {{ now()->format('d-m-Y') }}</p>
 </body>
 
 </html>

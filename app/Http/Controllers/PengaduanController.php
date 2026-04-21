@@ -52,8 +52,6 @@ class PengaduanController extends Controller
 
         if (Auth::user()->role === 'user') {
             $query->where('user_id', Auth::id());
-        } else {
-            $query->whereNotNull('id');
         }
 
         $pengaduans = $query->paginate(10);
@@ -67,7 +65,9 @@ class PengaduanController extends Controller
             abort(403, 'Akses ditolak.');
         }
 
-        return view('pengaduans.pengaduan-input');
+        $nextId = (Pengaduan::max('id') ?? 0) + 1;
+
+        return view('pengaduans.pengaduan-input', compact('nextId'));
     }
 
     public function store(Request $request)
@@ -122,7 +122,16 @@ class PengaduanController extends Controller
             'hasil_perbaikan' => 'nullable|string',
         ]);
 
-        $pengaduan->update(['status' => $validated['status'], 'hasil_perbaikan' => $validated['hasil_perbaikan']]);
+        $data = [
+            'status' => $validated['status'],
+            'hasil_perbaikan' => $validated['hasil_perbaikan'],
+        ];
+
+        if ($validated['status'] === 'selesai' && ! $pengaduan->tanggal_perbaikan) {
+            $data['tanggal_perbaikan'] = now()->toDateString();
+        }
+
+        $pengaduan->update($data);
 
         return redirect('/riwayat-pengaduan')
             ->with('success', 'Data pengaduan berhasil diperbarui.');

@@ -81,6 +81,9 @@ Route::middleware('auth')->group(function () {
         return view('dashboard', compact('pendingCount', 'processingCount', 'completedCount'));
     });
 
+    Route::get('/ganti-password', [UserController::class, 'showChangePassword']);
+    Route::post('/ganti-password', [UserController::class, 'changePassword'])->name('password.change');
+
     Route::get('/admin/profile', function () {
         $admin = Auth::user();
 

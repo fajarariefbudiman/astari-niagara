@@ -32,22 +32,42 @@
             @endif
 
             {{-- Grid Informasi --}}
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                @foreach ([
-            'ID Pengaduan' => 'NP' . str_pad($pengaduan->id, 4, '0', STR_PAD_LEFT),
-            'Tanggal Laporan' => $pengaduan->tanggal_laporan,
-            'Nama Pelapor' => $pengaduan->user->name ?? '-',
-            'Jabatan' => $pengaduan->jabatan_pelapor ?? '-',
-            'Departemen' => $pengaduan->departemen ?? '-',
-            'Nama Mesin' => $pengaduan->nama_mesin ?? '-',
-        ] as $label => $value)
-                    <div>
-                        <label class="block text-sm font-medium text-[#7A5A33] mb-1">{{ $label }}</label>
-                        <input type="text" readonly value="{{ $value }}"
-                            class="w-full bg-[#FAF9F7] border border-[#D9C6A5]/60 text-[#3E2F1C] rounded-lg px-4 py-2">
-                    </div>
-                @endforeach
-            </div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    @foreach ([
+        'No Pengaduan' => 'NP' . str_pad($pengaduan->id, 4, '0', STR_PAD_LEFT),
+        'Tanggal Laporan' => $pengaduan->tanggal_laporan,
+        'Nama Pelapor' => $pengaduan->user->name ?? '-',
+        'Jabatan' => $pengaduan->jabatan_pelapor ?? '-',
+        'Departemen' => $pengaduan->departemen ?? '-',
+        'Nama Mesin' => $pengaduan->nama_mesin ?? '-',
+    ] as $label => $value)
+        <div>
+            <label class="block text-sm font-medium text-[#7A5A33] mb-1">{{ $label }}</label>
+            <input type="text" readonly value="{{ $value }}"
+                class="w-full bg-[#FAF9F7] border border-[#D9C6A5]/60 text-[#3E2F1C] rounded-lg px-4 py-2">
+        </div>
+    @endforeach
+
+    {{-- Tanggal Perbaikan + Durasi --}}
+    <div>
+        <label class="block text-sm font-medium text-[#7A5A33] mb-1">Tanggal Perbaikan</label>
+        <input type="text" readonly
+            value="{{ $pengaduan->tanggal_perbaikan ? \Carbon\Carbon::parse($pengaduan->tanggal_perbaikan)->format('Y-m-d') : 'Belum selesai' }}"
+            class="w-full bg-[#FAF9F7] border border-[#D9C6A5]/60 text-[#3E2F1C] rounded-lg px-4 py-2">
+    </div>
+
+    {{-- Durasi Perbaikan --}}
+    <div>
+        <label class="block text-sm font-medium text-[#7A5A33] mb-1">Durasi Perbaikan</label>
+        <input type="text" readonly
+            value="@if($pengaduan->tanggal_perbaikan)
+                {{ \Carbon\Carbon::parse($pengaduan->tanggal_laporan)->diffInDays($pengaduan->tanggal_perbaikan) }} hari
+            @else
+                -
+            @endif"
+            class="w-full bg-[#FAF9F7] border border-[#D9C6A5]/60 text-[#3E2F1C] rounded-lg px-4 py-2">
+    </div>
+</div>
 
             {{-- Keterangan --}}
             <div class="mb-6">

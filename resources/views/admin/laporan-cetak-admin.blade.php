@@ -77,11 +77,12 @@
                     {{-- Header --}}
                     <thead class="bg-[#C0A785]/10 text-[#7A6C5D] uppercase text-xs tracking-wider">
                         <tr>
-                            <th class="px-4 py-3 border-b border-[#C0A785]/30">No</th>
                             <th class="px-4 py-3 border-b border-[#C0A785]/30">ID</th>
                             <th class="px-4 py-3 border-b border-[#C0A785]/30">Nama</th>
                             <th class="px-4 py-3 border-b border-[#C0A785]/30">Mesin</th>
-                            <th class="px-4 py-3 border-b border-[#C0A785]/30">Tanggal</th>
+                            <th class="px-4 py-3 border-b border-[#C0A785]/30">Tanggal Laporan</th>
+                            <th class="px-4 py-3 border-b border-[#C0A785]/30">Tanggal Perbaikan</th>
+                            <th class="px-4 py-3 border-b border-[#C0A785]/30">Durasi</th>
                             <th class="px-4 py-3 border-b border-[#C0A785]/30">Keterangan Masalah</th>
                             <th class="px-4 py-3 border-b border-[#C0A785]/30">Catatan Petugas</th>
                             <th class="px-4 py-3 border-b border-[#C0A785]/30">Status</th>
@@ -92,12 +93,23 @@
                     <tbody>
                         @forelse ($laporan as $index => $data)
                             <tr class="hover:bg-[#EDE6DF]/70 transition-all">
-                                <td class="px-4 py-2 border-b border-[#C0A785]/20">{{ $index + 1 }}</td>
                                 <td class="px-4 py-2 border-b border-[#C0A785]/20">
                                     NP{{ str_pad($data->id, 4, '0', STR_PAD_LEFT) }}</td>
                                 <td class="px-4 py-2 border-b border-[#C0A785]/20">{{ $data->nama_pelapor }}</td>
                                 <td class="px-4 py-2 border-b border-[#C0A785]/20">{{ $data->nama_mesin }}</td>
                                 <td class="px-4 py-2 border-b border-[#C0A785]/20">{{ $data->tanggal_laporan }}</td>
+                                <td class="px-4 py-2 border-b border-[#C0A785]/20">
+                                    {{ $data->tanggal_perbaikan 
+                                        ? \Carbon\Carbon::parse($data->tanggal_perbaikan)->format('Y-m-d') 
+                                        : '-' }}
+                                </td>
+                                <td class="px-4 py-2 border-b border-[#C0A785]/20">
+                                    @if ($data->tanggal_perbaikan)
+                                        {{ \Carbon\Carbon::parse($data->tanggal_laporan)->diffInDays($data->tanggal_perbaikan) }} hari
+                                    @else
+                                        -
+                                    @endif
+                                </td>
                                 <td class="px-4 py-2 border-b border-[#C0A785]/20 max-w-xs">
                                     <p class="line-clamp-3 text-gray-700">{{ $data->keterangan ?? '-' }}</p>
                                 </td>
@@ -120,7 +132,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class="text-center text-[#7A6C5D]/60 py-6">Tidak ada data ditemukan.</td>
+                                <td colspan="10" class="text-center text-[#7A6C5D]/60 py-6">Tidak ada data ditemukan.</td>
                             </tr>
                         @endforelse
                     </tbody>

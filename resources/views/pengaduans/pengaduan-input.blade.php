@@ -17,8 +17,8 @@
 
                 {{-- ID --}}
                 <div class="mb-5">
-                    <label class="block text-sm font-medium text-[#7A5A33] mb-1">ID Laporan</label>
-                    <input type="text" name="kode" value="NP{{ str_pad(rand(1, 9999), 4, '0', STR_PAD_LEFT) }}" readonly
+                    <label class="block text-sm font-medium text-[#7A5A33] mb-1">No Pengaduan</label>
+                    <input type="text" value="NP{{ str_pad($nextId, 4, '0', STR_PAD_LEFT) }}" readonly
                         class="w-full bg-[#FAF9F7] border border-[#D9C6A5]/60 text-[#3E2F1C] rounded-lg px-4 py-2">
                 </div>
 
@@ -32,8 +32,8 @@
                 {{-- Tanggal Laporan --}}
                 <div class="mb-5">
                     <label class="block text-sm font-medium text-[#7A5A33] mb-1">Tanggal Laporan</label>
-                    <input type="date" name="tanggal_laporan" value="{{ date('Y-m-d') }}" required
-                        class="w-full bg-[#FAF9F7] border border-[#D9C6A5]/60 text-[#3E2F1C] rounded-lg px-4 py-2 focus:ring-2 focus:ring-[#C0A785] focus:border-transparent">
+                    <input type="text" name="tanggal_laporan" value="{{ date('Y-m-d') }}" readonly
+                        class="w-full bg-[#FAF9F7] border border-[#D9C6A5]/60 text-[#3E2F1C] rounded-lg px-4 py-2 cursor-not-allowed">
                 </div>
 
                 {{-- Jabatan --}}
@@ -46,8 +46,8 @@
                 {{-- Departemen --}}
                 <div class="mb-5">
                     <label class="block text-sm font-medium text-[#7A5A33] mb-1">Departemen</label>
-                    <input type="text" name="departemen" placeholder="Contoh: Produksi" required
-                        class="w-full bg-[#FAF9F7] border border-[#D9C6A5]/60 text-[#3E2F1C] rounded-lg px-4 py-2 focus:ring-2 focus:ring-[#C0A785] focus:border-transparent">
+                    <input type="text" name="departemen" value="{{ Auth::user()->departemen }}" readonly
+                        class="w-full bg-[#FAF9F7] border border-[#D9C6A5]/60 text-[#3E2F1C] rounded-lg px-4 py-2 cursor-not-allowed">
                 </div>
 
                 {{-- Nama Mesin --}}

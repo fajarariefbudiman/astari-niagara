@@ -2,11 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\User;
 use App\Models\Pengaduan;
-use App\Models\Teknisi;
-use App\Models\Laporan;
+use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -30,7 +28,6 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('password'),
                 'role' => $roleList[array_rand($roleList)],
             ]);
-
 
         $pengaduans = collect($users)->flatMap(function ($user) {
             return collect([
@@ -63,6 +60,9 @@ class DatabaseSeeder extends Seeder
                     'departemen' => $data['departemen'],
                     'nama_mesin' => $data['nama_mesin'],
                     'tanggal_laporan' => now()->subDays(rand(0, 10)),
+                    'tanggal_perbaikan' => $data['status'] === 'selesai'
+                        ? now()->subDays(rand(0, 5))
+                        : null,
                     'keterangan' => $data['keterangan'],
                     'status' => $data['status'],
                 ]);

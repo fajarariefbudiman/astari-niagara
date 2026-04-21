@@ -81,17 +81,16 @@
                             {{-- @endif --}}
 
                             {{-- Password --}}
-                            <div>
-                                <label class="block text-sm font-medium text-[#7A6C5D] mb-2" for="password">
-                                    <i class="fas fa-lock mr-2"></i>Password
-                                    @if (isset($user))
-                                        <span class="text-xs text-[#7A6C5D]/60">(Kosongkan jika tidak ingin mengubah)</span>
-                                    @endif
-                                </label>
-                                <input type="password" name="password" id="password"
-                                    class="w-full px-4 py-3 rounded-lg border border-[#C0A785]/40 bg-white/70 focus:outline-none focus:ring-2 focus:ring-[#C0A785]/60 focus:border-transparent transition-all"
-                                    placeholder="Minimal 8 karakter" {{ isset($user) ? '' : 'required' }}>
-                            </div>
+                            @if (!isset($user))
+                                <div>
+                                    <label class="block text-sm font-medium text-[#7A6C5D] mb-2" for="password">
+                                        <i class="fas fa-lock mr-2"></i>Password
+                                    </label>
+                                    <input type="password" name="password" id="password"
+                                        class="w-full px-4 py-3 rounded-lg border border-[#C0A785]/40 bg-white/70 focus:outline-none focus:ring-2 focus:ring-[#C0A785]/60 focus:border-transparent transition-all"
+                                        placeholder="Minimal 8 karakter" required>
+                                </div>
+                            @endif
 
                             {{-- Tombol Submit --}}
                             <div class="pt-4">

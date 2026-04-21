@@ -21,13 +21,13 @@ return new class extends Migration
             $table->string('nama_mesin');
             $table->string('hasil_perbaikan')->nullable();
             $table->date('tanggal_laporan');
+            $table->date('tanggal_perbaikan')->nullable();
             $table->text('keterangan');
 
             $table->enum('status', ['menunggu', 'diproses', 'selesai'])->default('menunggu');
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.

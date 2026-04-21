@@ -14,6 +14,7 @@ class Pengaduan extends Model
         'departemen',
         'nama_mesin',
         'tanggal_laporan',
+        'tanggal_perbaikan',
         'hasil_perbaikan',
         'keterangan',
         'status',
@@ -23,5 +24,4 @@ class Pengaduan extends Model
     {
         return $this->belongsTo(User::class);
     }
-
 }

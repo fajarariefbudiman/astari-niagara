@@ -69,12 +69,6 @@
                                 <i class="fas fa-user-cog mr-2 text-xs"></i> Data Teknisi
                             </a>
                         </li>
-                        <li>
-                            <a href="/admin/profile"
-                                class="block px-3 py-2 rounded-lg {{ Request::is('admin/profile') ? 'bg-gradient-to-r from-[#C0A785] to-[#E5C49E] text-white font-semibold' : 'hover:bg-[#EDE6DF]/70' }} transition-all">
-                                <i class="fas fa-id-badge mr-2 text-xs"></i> Profil Akun
-                            </a>
-                        </li>
                     </ul>
                 </li>
             </ul>
@@ -118,6 +112,14 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="/ganti-password"
+                        class="flex items-center space-x-3 px-4 py-3 rounded-lg {{ Request::is('ganti-password') ? 'bg-gradient-to-r from-[#C0A785] to-[#E5C49E] text-white font-semibold shadow hover:from-[#E5C49E] hover:to-[#C0A785]' : 'text-[#7A6C5D] hover:bg-[#EDE6DF]/70' }} transition-all hover:scale-[1.02]">
+                        <i class="fas fa-key text-lg"></i>
+                        <span>Ganti Password</span>
+                    </a>
+                </li>
+
 
             </ul>
 
@@ -149,6 +151,14 @@
                         class="flex items-center space-x-3 px-4 py-3 rounded-lg {{ Request::is('riwayat-pengaduan') ? 'bg-gradient-to-r from-[#C0A785] to-[#E5C49E] text-white font-semibold shadow hover:from-[#E5C49E] hover:to-[#C0A785]' : 'text-[#7A6C5D] hover:bg-[#EDE6DF]/70' }} transition-all hover:scale-[1.02]">
                         <i class="fas fa-database text-lg"></i>
                         <span>Data Pengaduan</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/ganti-password"
+                        class="flex items-center space-x-3 px-4 py-3 rounded-lg {{ Request::is('ganti-password') ? 'bg-gradient-to-r from-[#C0A785] to-[#E5C49E] text-white font-semibold shadow hover:from-[#E5C49E] hover:to-[#C0A785]' : 'text-[#7A6C5D] hover:bg-[#EDE6DF]/70' }} transition-all hover:scale-[1.02]">
+                        <i class="fas fa-key text-lg"></i>
+                        <span>Ganti Password</span>
                     </a>
                 </li>
             </ul>

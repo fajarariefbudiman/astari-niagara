@@ -18,12 +18,35 @@ class UserController extends Controller
         return view('admin.user-kelola-admin', compact('users', 'role'));
     }
 
+    public function showChangePassword()
+    {
+        return view('auth.ganti-password');
+    }
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'password_lama' => 'required',
+            'password_baru' => 'required|min:8|confirmed',
+        ]);
+
+        if (! Hash::check($request->password_lama, Auth::user()->password)) {
+            return back()->withErrors(['password_lama' => 'Password lama tidak sesuai.']);
+        }
+
+        Auth::user()->update([
+            'password' => Hash::make($request->password_baru),
+        ]);
+
+        return back()->with('success', 'Password berhasil diubah!');
+    }
+
     public function profileAdmin()
     {
         $admin = Auth::user();
+
         return view('akun-profil-admin', compact('admin'));
     }
-
 
     public function updateProfile(Request $request)
     {
@@ -39,13 +62,13 @@ class UserController extends Controller
         $admin->email = $request->email;
 
         if ($request->hasFile('foto')) {
-            if ($admin->foto && Storage::exists('public/foto/' . $admin->foto)) {
-                Storage::delete('public/foto/' . $admin->foto);
+            if ($admin->foto && Storage::exists('public/foto/'.$admin->foto)) {
+                Storage::delete('public/foto/'.$admin->foto);
             }
 
             $file = $request->file('foto');
             $extension = $file->getClientOriginalExtension();
-            $filename = time() . '-admin-foto.' . $extension;
+            $filename = time().'-admin-foto.'.$extension;
 
             $path = $file->storeAs('public/foto', $filename);
 
@@ -58,7 +81,6 @@ class UserController extends Controller
             $admin->foto = $filename;
         }
 
-
         $admin->save();
 
         return back()->with('success', 'Profil berhasil diperbarui!');
@@ -67,28 +89,28 @@ class UserController extends Controller
     public function create(Request $request)
     {
         $role = $request->get('role', 'user');
+
         return view('admin.user-tambah-admin', compact('role'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'name'       => 'required|string|max:255',
-            'email'      => 'required|email|unique:users,email' . (isset($user) ? ',' . $user->id : ''),
-            'phone'      => 'string',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email'.(isset($user) ? ','.$user->id : ''),
+            'phone' => 'string',
             'departemen' => $request->role === 'teknisi' ? 'required|string|max:255' : 'nullable|string|max:255',
-            'password'   => isset($user) ? 'nullable|string|min:6' : 'required|string|min:6',
-            'role'       => 'required|string|in:user,teknisi',
+            'password' => isset($user) ? 'nullable|string|min:6' : 'required|string|min:6',
+            'role' => 'required|string|in:user,teknisi',
         ]);
 
-
         User::create([
-            'name'       => $request->name,
-            'email'      => $request->email,
-            'phone'      => $request->phone,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
             'departemen' => $request->departemen,
-            'password'   => Hash::make($request->password),
-            'role'       => $request->role,
+            'password' => Hash::make($request->password),
+            'role' => $request->role,
         ]);
 
         return redirect()->route('users.index', ['role' => $request->role])
@@ -103,21 +125,20 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $request->validate([
-            'name'       => 'required|string|max:255',
-            'phone'      => 'string',
-            'email'      => 'required|email|unique:users,email' . (isset($user) ? ',' . $user->id : ''),
+            'name' => 'required|string|max:255',
+            'phone' => 'string',
+            'email' => 'required|email|unique:users,email'.(isset($user) ? ','.$user->id : ''),
             'departemen' => $request->role === 'teknisi' ? 'required|string|max:255' : 'nullable|string|max:255',
-            'password'   => isset($user) ? 'nullable|string|min:6' : 'required|string|min:6',
-            'role'       => 'required|string|in:user,teknisi',
+            'password' => isset($user) ? 'nullable|string|min:6' : 'required|string|min:6',
+            'role' => 'required|string|in:user,teknisi',
         ]);
 
-
         $user->update([
-            'name'       => $request->name,
-            'email'      => $request->email,
-            'phone'      => $request->phone,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
             'departemen' => $request->departemen,
-            'password'   => $request->filled('password') ? Hash::make($request->password) : $user->password,
+            'password' => $request->filled('password') ? Hash::make($request->password) : $user->password,
         ]);
 
         return redirect()->route('users.index', ['role' => $user->role])
@@ -126,7 +147,7 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        $user =  User::findOrFail($id);
+        $user = User::findOrFail($id);
         $role = $user->role;
         $user->delete();
 
