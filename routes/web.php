@@ -92,7 +92,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard-admin', function () {
         $pengaduanCount = Pengaduan::count();
-        $userCount = User::where('role', '!=', 'teknisi')->count();
+        $userCount = User::where('role', 'user')->count();
         $teknisiCount = User::where('role', 'teknisi')->count();
 
         return view('dashboard-admin', compact('pengaduanCount', 'userCount', 'teknisiCount'));
