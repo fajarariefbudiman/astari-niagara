@@ -81,7 +81,7 @@
                             {{-- @endif --}}
 
                             {{-- Password --}}
-                            @if (!isset($user))
+                            @if (!isset($user) || $isTeknisi)
                                 <div>
                                     <label class="block text-sm font-medium text-[#7A6C5D] mb-2" for="password">
                                         <i class="fas fa-lock mr-2"></i>Password
